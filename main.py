@@ -51,10 +51,32 @@ def go(config: DictConfig):
             )
 
         if "basic_cleaning" in active_steps:
-            ##################
-            # Implement here #
-            ##################
-            pass
+            # Set the path for the artifact to clean
+            input_artifact = "sample.csv"  # This would come from W&B or config
+        
+            # You may pass dynamic parameters from the config file, e.g., min_price, max_price
+            output_artifact = "clean_sample.csv"
+            output_type = "clean_data"
+            output_description = "Cleaned dataset with outliers removed"
+            min_price = config["etl"]["min_price"]
+            max_price = config["etl"]["max_price"]
+        
+            # Call the basic_cleaning step and pass parameters to run.py
+            _ = mlflow.run(
+                f"{config['main']['components_repository']}/basic_cleaning",  # Make sure path to basic_cleaning is correct
+                "main",
+                version="main",
+                env_manager="conda",
+                parameters={
+                    "input_artifact": input_artifact,
+                    "output_artifact": output_artifact,
+                    "output_type": output_type,
+                    "output_description": output_description,
+                    "min_price": min_price,
+                    "max_price": max_price,
+                },
+            )
+
 
         if "data_check" in active_steps:
             ##################
