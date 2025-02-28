@@ -50,11 +50,22 @@ def go(config: DictConfig):
                 },
             )
 
-        if "basic_cleaning" in active_steps:
-            ##################
-            # Implement here #
-            ##################
-            pass
+        if "basic_cleaning" in _steps:
+            _ = mlflow.run(
+                f"{config['main']['components_repository']}/basic_cleaning",
+                "main",
+                version='main',
+                env_manager="conda",
+                parameters={
+                    "input_artifact": "sample.csv:latest",
+                    "output_artifact": "clean_sample.csv",
+                    "output_type": "dataset",
+                    "output_description": "Cleaned Airbnb dataset",
+                    "min_price": config["etl"]["min_price"],
+                    "max_price": config["etl"]["max_price"]
+                }
+            )
+
 
         if "data_check" in active_steps:
             ##################

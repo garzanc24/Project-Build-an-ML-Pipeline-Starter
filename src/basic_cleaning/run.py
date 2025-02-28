@@ -49,50 +49,14 @@ def go(args):
 # TODO: In the code below, fill in a description for each argument. The description should be a string.
 if __name__ == "__main__":
 
-    parser = argparse.ArgumentParser(description="A very basic data cleaning")
-  
-    parser.add_argument(
-        "--input_artifact", 
-        type = ## INSERT TYPE HERE: str, float or int,
-        help = ## INSERT DESCRIPTION HERE,
-        required = True
-    )
+    parser = argparse.ArgumentParser(description="Perform basic data cleaning")
 
-    parser.add_argument(
-        "--output_artifact", 
-        type = ## INSERT TYPE HERE: str, float or int,
-        help = ## INSERT DESCRIPTION HERE,
-        required = True
-    )
-
-    parser.add_argument(
-        "--output_type", 
-        type = ## INSERT TYPE HERE: str, float or int,
-        help = ## INSERT DESCRIPTION HERE,
-        required = True
-    )
-
-    parser.add_argument(
-        "--output_description", 
-        type = ## INSERT TYPE HERE: str, float or int,
-        help = ## INSERT DESCRIPTION HERE,
-        required = True
-    )
-
-    parser.add_argument(
-        "--min_price", 
-        type = ## INSERT TYPE HERE: str, float or int,
-        help = ## INSERT DESCRIPTION HERE,
-        required = True
-    )
-
-    parser.add_argument(
-        "--max_price",
-        type = ## INSERT TYPE HERE: str, float or int,
-        help = ## INSERT DESCRIPTION HERE,
-        required = True
-    )
-
+    parser.add_argument("--input_artifact", type=str, required=True, help="Input dataset artifact from W&B")
+    parser.add_argument("--output_artifact", type=str, required=True, help="Name of the output cleaned dataset artifact")
+    parser.add_argument("--output_type", type=str, required=True, help="Type of the output artifact")
+    parser.add_argument("--output_description", type=str, required=True, help="Description of the output artifact")
+    parser.add_argument("--min_price", type=float, required=True, help="Minimum valid price")
+    parser.add_argument("--max_price", type=float, required=True, help="Maximum valid price")
 
     args = parser.parse_args()
 
