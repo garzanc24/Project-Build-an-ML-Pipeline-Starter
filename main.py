@@ -40,19 +40,20 @@ def go(config: DictConfig):
     # Step: Basic Cleaning
     # -----------------------------
     if "basic_cleaning" in active_steps:
-        _ = mlflow.run(
+       _ = mlflow.run(
             os.path.join(hydra.utils.get_original_cwd(), "src", "basic_cleaning"),
             "main",
             env_manager="conda",
             parameters={
-                "input_artifact": "sample.csv:latest",
+                "input_artifact": "raw_data/sample.csv:latest"
                 "output_artifact": "clean_sample.csv",
-                "output_type": "clean_sample",
-                "output_description": "Data with outliers and null values removed",
+                "output_type": "dataset",
+                "output_description": "Cleaned Airbnb dataset",
                 "min_price": config["etl"]["min_price"],
                 "max_price": config["etl"]["max_price"]
             },
         )
+
 
     # -----------------------------
     # Step: Data Check

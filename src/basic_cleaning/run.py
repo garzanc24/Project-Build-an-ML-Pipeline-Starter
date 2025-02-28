@@ -43,43 +43,42 @@ def go(args):
     run.finish()
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="A very basic data cleaning")
-    
+    parser = argparse.ArgumentParser(description="This step cleans the data")
+
     parser.add_argument(
         "--input_artifact", 
         type=str,
-        help="The input artifact",
-        required=True
+        help="Input artifact from the EDA step",
     )
+    
     parser.add_argument(
         "--output_artifact", 
         type=str,
-        help="The name for the output artifact",
-        required=True
+        help="Output artifact name for the cleaned data",
     )
+    
     parser.add_argument(
         "--output_type", 
         type=str,
-        help="The type for the output artifact",
-        required=True
+        help="Type of the output artifact",
     )
+    
     parser.add_argument(
         "--output_description", 
         type=str,
-        help="A description for the output artifact",
-        required=True
+        help="Description of the output artifact",
     )
+    
     parser.add_argument(
         "--min_price", 
         type=float,
-        help="The minimum price to consider",
-        required=True
+        help="Minimum price to include in the cleaned dataset",
     )
+    
     parser.add_argument(
         "--max_price", 
         type=float,
-        help="The maximum price to consider",
-        required=True
+        help="Maximum price to include in the cleaned dataset",
     )
     
     args = parser.parse_args()
