@@ -30,7 +30,11 @@ def go(args):
     df['last_review'] = pd.to_datetime(df['last_review'], errors='coerce')
     
     logger.info("Filtering locations within NYC boundaries")
-    df = df[df['longitude'].between(-74.25, -73.50) & df['latitude'].between(40.5, 41.2)].copy()
+    idx = df['longitude'].between(-74.25, -73.50) & df['latitude'].between(40.5, 41.2)
+    df = df[idx].copy()
+
+
+
     
     output_path = "clean_sample.csv"
     logger.info(f"Saving cleaned data to {output_path}")
