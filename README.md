@@ -179,3 +179,9 @@ Please, make sure all steps are using **the same** python version and that you h
 ## License
 
 [License](LICENSE.txt)
+
+Project Links:
+https://wandb.ai/garzajnc14-udacity/nyc_airbnb/overview
+https://github.com/garzanc24/Project-Build-an-ML-Pipeline-Starter
+
+
