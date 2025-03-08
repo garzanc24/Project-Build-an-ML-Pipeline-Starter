@@ -85,17 +85,36 @@ def go(config: DictConfig):
                     "input": "clean_sample.csv:latest",
                     "test_size": config["modeling"]["test_size"],
                     "random_seed": config["modeling"]["random_seed"],
-                    "stratify_by": config["modeling"]["stratify_by"],
+                    "stratify_by": None if config["modeling"]["stratify_by"] == "none" else config["modeling"]["stratify_by"],
+
                 },
             )
 
 
         if "train_random_forest" in active_steps:
-            # Serialize random forest configuration
-            rf_config = os.path.join(tmp_dir, "rf_config.json")
-            with open(rf_config, "w+") as fp:
-                json.dump(dict(config["modeling"]["random_forest"].items()), fp)
-            pass
+            root_path = hydra.utils.get_original_cwd()  
+        
+            # Serialize Random Forest configuration from config.yaml
+            rf_config = os.path.join(root_path, "rf_config.json")
+            with open(rf_config, "w") as fp:
+                json.dump(dict(config["modeling"]["random_forest"]), fp)
+        
+            _ = mlflow.run(
+                os.path.join(root_path, "src", "train_random_forest"),
+                "main",
+                parameters={
+                    "trainval_artifact": "trainval_data.csv:latest",
+                    "output_artifact": "random_forest_export",
+                    "rf_config": rf_config,
+                    "random_seed": config["modeling"]["random_seed"],
+                    "val_size": config["modeling"]["val_size"],  
+                    "max_tfidf_features": config["modeling"]["max_tfidf_features"],  
+                },
+            )
+
+
+
+
 
         if "test_regression_model" in active_steps:
             pass
