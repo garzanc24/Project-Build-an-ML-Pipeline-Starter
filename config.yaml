@@ -10,7 +10,7 @@ etl:
   max_price: 350  # Maximum house price in dollars
 
 data_check:
-  kl_threshold: 0.2  # Kullback-Leibler threshold for data drift detection
+  kl_threshold: 0.1  # Kullback-Leibler threshold for data drift detection
 
 modeling:
   test_size: 0.2  # Fraction of data to use for test
